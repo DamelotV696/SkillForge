@@ -7,36 +7,18 @@
         <nav class="space-y-1.5 mt-16">
             <Link href="/"
                 class="flex items-center px-3 py-2 rounded text-gray-700 hover:bg-[#2EE091] hover:bg-opacity-40 group">
-                <HomeIcon class="h-5 w-5 mr-3" />
-                Home
+            <HomeIcon class="h-5 w-5 mr-3" />
+            Home
             </Link>
-            <Link href="/profile"
-                class="flex items-center px-3 py-2 rounded text-gray-700 hover:bg-[#2EE091] hover:bg-opacity-40 group">
-                <UserIcon class="h-5 w-5 mr-3" />
-                Profile
-            </Link>
-            <Link href="#"
-                class="flex items-center px-3 py-2 rounded text-gray-700 hover:bg-[#2EE091] hover:bg-opacity-40 group">
-                <ChartBarIcon class="h-5 w-5 mr-3" />
-                Dashboard
-            </Link>
-            <Link href="#"
-                class="flex items-center px-3 py-2 rounded text-gray-700 hover:bg-[#2EE091] hover:bg-opacity-40 group">
-                <ArrowsRightLeftIcon class="h-5 w-5 mr-3" />
-                Exchanges
-            </Link>
-
-
-            <Link href="#"
-                class="flex items-center px-3 py-2 rounded text-gray-700 hover:bg-[#2EE091] hover:bg-opacity-40 group">
-                <BellIcon class="h-5 w-5 mr-3" />
-                Notifications
-            </Link>
-
             <Link href="/admin/users"
                 class="flex items-center px-3 py-2 rounded text-gray-700 hover:bg-[#2EE091] hover:bg-opacity-40 group">
-                <ShieldCheckIcon class="h-5 w-5 mr-3" />
-                Admin
+            <ShieldCheckIcon class="h-5 w-5 mr-3" />
+            Users
+            </Link>
+            <Link href="/admin/categories"
+                class="flex items-center px-3 py-2 rounded text-gray-700 hover:bg-[#2EE091] hover:bg-opacity-40 group">
+            <RectangleGroupIcon  class="h-5 w-5 mr-3" />
+            Categories
             </Link>
 
         </nav>
@@ -44,7 +26,6 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
 import { Link } from '@inertiajs/vue3';
 import {
     HomeIcon,
@@ -53,6 +34,7 @@ import {
     UserIcon,
     BellIcon,
     ShieldCheckIcon,
+    RectangleGroupIcon 
 } from '@heroicons/vue/24/outline'
 
 </script>
