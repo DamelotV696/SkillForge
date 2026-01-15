@@ -21,7 +21,7 @@ class CategoryController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('categories', 'public_images');
+            $data['image'] = $request->file('image')->store('categories', 'public');
         }
 
         $category = Category::create($data);
@@ -31,12 +31,16 @@ class CategoryController extends Controller
             'category' => $category,
         ], 201);
     }
-    public function destroy($id)
+    public function destroy($category)
     {
-        $category = Category::findOrFail($id);
+        $category = Category::find($category);
+
+        if (!$category) {
+            return response()->json(['message' => 'Category not found'], 404);
+        }
 
         $category->delete();
 
-        return response()->json(['message' => 'Удалено']);
+        return response()->json(['message' => 'Category deleted']);
     }
 }

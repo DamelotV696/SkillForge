@@ -16,28 +16,30 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function edit(Request $request): Response
+    public function edit(Request $request)
     {
         return Inertia::render('Profile/Edit', [
-            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
-            'status' => session('status'),
+            'user' => $request->user(),
         ]);
     }
 
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(Request $request)
     {
-        $request->user()->fill($request->validated());
+        $user = $request->user();
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'profession' => 'nullable|string|max:255',
+            'bio' => 'nullable|string|max:1000',
+        ]);
 
-        $request->user()->save();
+        $user->fill($validated);
+        $user->save();
 
-        return Redirect::route('profile.edit');
+        return redirect()->route('profile')->with('success', 'Profile updated successfully.');
     }
 
     /**

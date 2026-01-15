@@ -144,7 +144,7 @@ const cards = [
                     <div v-for="category in props.categories" :key="category.id" class="rounded-xl p-1">
 
                         <div class="category bg-white p-5 rounded-xl shadow-sm w-52 text-center">
-                            <img :src="`/images/${category.image}`" class="w-28 h-28 object-cover mb-4 mx-auto rounded-lg">
+                            <img :src="`/storage/${category.image}`" class="w-28 h-28 object-cover mb-4 mx-auto rounded-lg">
                             <h3 class="font-bold text-gray-800 mb-3 text-xl">{{ category.title }}</h3>
                             <div class="space-y-2">
                                 <p class="text-gray-600 text-base">Vacancies:</p>

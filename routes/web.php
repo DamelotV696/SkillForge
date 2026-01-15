@@ -7,6 +7,9 @@ use App\Http\Controllers\Admin\User\IndexController;
 use App\Http\Controllers\Admin\User\ShowController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Category;
+use App\Models\ExchangeTypes;
+use App\Models\level;
+use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
@@ -31,17 +34,18 @@ Route::get('/', function () {
 /*
  | Dashboard
 */
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', function () {
+        return Inertia('Dashboard');
+    })->name('dashboard');
+});
 /*
  | Authenticated routes
 */
 // Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
-    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/admin/users', function () {
@@ -58,7 +62,15 @@ Route::middleware('auth')->group(function () {
         return Inertia::render('Profile', [
             'user' => Auth::user()
         ]);
-    })->name('profile');
+    })->name('profile');;
+    Route::get('/skills/create', function () {
+        return Inertia::render('Skill/CreateSkill', [
+            'categories' => Category::all(),
+            'exchangeTypes' => ExchangeTypes::all(),
+            'level' => level::all()
+
+        ]);
+    })->name('skills.create');
 
 
 

@@ -19,7 +19,6 @@ onMounted(async () => {
     await api.get("/sanctum/csrf-cookie");
 });
 
-// Создание категории
 const createCategory = async () => {
     const formData = new FormData();
     formData.append("title", title.value);
@@ -42,6 +41,13 @@ const deleteCategory = async (id) => {
     await api.delete(`/api/categories/${id}`);
     fetchCategories();
 };
+const onFileChange = (event) => {
+    const files = event.target?.files;
+    if (!files || !files.length) return;
+
+    image.value = files[0];
+};
+
 </script>
 
 <template>
@@ -55,7 +61,8 @@ const deleteCategory = async (id) => {
             <table class="w-full border-collapse bg-white shadow rounded-xl">
                 <thead>
                     <tr class="bg-gray-100 text-left">
-                        <th class="px-4 py-3 border">ID</th>
+                        <th class="px-4 py-3 border w-10">ID</th>
+                        <th class="px-4 py-3 border w-24">Image</th>
                         <th class="px-4 py-3 border">Title</th>
                         <th class="px-4 py-3 border">Vacantions</th>
                         <th class="px-4 py-3 border">Created</th>
@@ -65,13 +72,16 @@ const deleteCategory = async (id) => {
                 <tbody>
                     <tr v-for="category in props.categories" :key="category.id" class="hover:bg-gray-50">
                         <td class="px-4 py-3 border">{{ category.id }}</td>
+                        <td class="px-4 py-4 border"><img :src="`/storage/${category.image}`" alt="" class="w-24"></td>
                         <td class="px-4 py-3 border">{{ category.title }}</td>
                         <td class="px-4 py-3 border">{{ category.vacantions }}</td>
                         <td class="px-4 py-3 border">
                             {{ new Date(category.created_at).toLocaleDateString() }}
                         </td>
                         <td class="px-4 py-3 border">
-                            <button @click="deleteCategory(cat.id)" class="text-red-600 ml-4">Удалить</button>
+                            <button @click="deleteCategory(category.id)" class="text-red-600 ml-4">
+                                <TrashIcon class="h-5 w-5 mr-3" />
+                            </button>
                         </td>
                     </tr>
                 </tbody>
@@ -88,6 +98,7 @@ const deleteCategory = async (id) => {
                         Add a new category to organize your content
                     </p>
                 </div>
+                
 
                 <!-- Поле загрузки файла -->
                 <div class="space-y-3">
@@ -95,12 +106,11 @@ const deleteCategory = async (id) => {
                         Image File
                     </label>
 
-                    <input id="image-url" type="file" @change="e => image = e.target.files[0]" class="w-full py-3.5 px-4 bg-white border border-gray-300
-                        rounded-lg text-gray-900 focus:border-green-600
-                        focus:ring-2 focus:ring-green-300 transition-all" />
+                    <input id="image-url" type="file" @change="onFileChange"
+                        class="w-full py-3.5 px-4 bg-white border border-gray-300 rounded-lg" />
+
                 </div>
 
-                <!-- Поле Title -->
                 <div class="space-y-3 mt-6">
                     <label for="title" class="block text-sm font-semibold text-gray-700">
                         Category Title

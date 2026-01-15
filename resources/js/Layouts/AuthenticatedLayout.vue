@@ -72,7 +72,7 @@ const showingNavigationDropdown = ref(false);
 
                                     <template #content>
                                         <DropdownLink
-                                            :href="route('profile.edit')"
+                                            :href="route('profile')"
                                         >
                                             Profile
                                         </DropdownLink>

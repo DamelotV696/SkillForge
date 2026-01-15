@@ -84,7 +84,7 @@ const startEditing = () => {
 };
 
 const saveProfile = () => {
-  profileForm.put(route('profile.update'), {
+  profileForm.patch(route('profile.update'), {
     preserveScroll: true,
     onSuccess: () => {
       isEditing.value = false;
@@ -102,6 +102,7 @@ const cancelEditing = () => {
 </script>
 
 <template>
+
   <Head title="Профиль пользователя" />
 
   <div class="flex bg-[#F0F2F5] min-h-screen font-sans">
@@ -118,23 +119,20 @@ const cancelEditing = () => {
           </div>
 
           <div v-if="!isEditing">
-            <button
-              @click="startEditing"
+            <button @click="startEditing"
               class="flex items-center gap-2 px-4 py-2 border border-2 border-[#13AC68] text-[#13AC68] rounded hover:bg-green-50 transition">
               <PencilIcon class="w-4 h-4" />
               <span class="font-bold">Edit Profile</span>
             </button>
           </div>
-          
+
           <div v-else class="flex gap-2">
-            <button
-              @click="saveProfile"
+            <button @click="saveProfile"
               class="flex items-center gap-2 px-4 py-2 border border-2 border-[#13AC68] bg-[#13AC68] text-white rounded hover:bg-green-600 transition">
               <CheckIcon class="w-4 h-4" />
               <span class="font-bold">Save</span>
             </button>
-            <button
-              @click="cancelEditing"
+            <button @click="cancelEditing"
               class="flex items-center gap-2 px-4 py-2 border border-2 border-gray-300 text-gray-700 rounded hover:bg-gray-50 transition">
               <XMarkIcon class="w-4 h-4" />
               <span class="font-bold">Cancel</span>
@@ -155,35 +153,29 @@ const cancelEditing = () => {
                 <p class="font-bold text-gray-800 text-lg">{{ user.name }}</p>
               </div>
               <div v-else>
-                <input
-                  v-model="profileForm.name"
-                  type="text"
+                <input v-model="profileForm.name" type="text"
                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#2EE091] focus:border-transparent"
-                  placeholder="Введите имя"
-                />
+                  placeholder="Введите имя" />
               </div>
             </div>
-            
+
             <div>
               <p class="text-gray-400 text-sm mb-1 font-mono">Role</p>
               <div v-if="!isEditing">
                 <p class="font-bold text-gray-800 text-lg">{{ user.profession }}</p>
               </div>
               <div v-else>
-                <input
-                  v-model="profileForm.profession"
-                  type="text"
+                <input v-model="profileForm.profession" type="text"
                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#2EE091] focus:border-transparent"
-                  placeholder="Введите профессию"
-                />
+                  placeholder="Введите профессию" />
               </div>
             </div>
-            
+
             <div class="col-span-1 md:col-span-2">
               <p class="text-gray-400 text-sm mb-1 font-mono">Email Address</p>
               <p class="font-bold text-gray-800 text-lg break-all">{{ user.email }}</p>
             </div>
-            
+
             <div>
               <p class="text-gray-400 text-sm mb-1 font-mono">Rate</p>
               <div class="flex items-center text-yellow-400 font-bold text-lg">
@@ -204,17 +196,14 @@ const cancelEditing = () => {
             </p>
           </div>
           <div v-else>
-            <textarea
-              v-model="profileForm.bio"
-              rows="3"
+            <textarea v-model="profileForm.bio" rows="3"
               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#2EE091] focus:border-transparent"
-              placeholder="Расскажите о себе"
-            ></textarea>
+              placeholder="Расскажите о себе"></textarea>
           </div>
         </div>
       </div>
 
-      <!-- Остальной код остается без изменений -->
+      <!--------------------------- Active Skills -------------------------------------->
       <div>
         <div class="flex flex-col md:flex-row justify-between items-center mb-6">
           <div class="flex items-center gap-3 mb-4 md:mb-0">
@@ -228,50 +217,55 @@ const cancelEditing = () => {
               <AdjustmentsHorizontalIcon class="w-5 h-5" />
               Filter
             </button>
-            <button
-              class="flex items-center gap-2 px-4 py-2 bg-[#2EE091] text-white rounded hover:bg-opacity-90 transition shadow-md shadow-green-200">
-              <PlusIcon class="w-5 h-5" />
-              Add Skills
-            </button>
+            <Link :href="route('skills.create')">
+              <button
+                class="flex items-center gap-2 px-4 py-2 bg-[#2EE091] text-white rounded hover:bg-opacity-90 transition shadow-md shadow-green-200">
+                <PlusIcon class="w-5 h-5" />
+                Add Skills
+              </button>
+            </Link>
+
           </div>
         </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div v-for="skill in skills" :key="skill.id"
-            class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col h-full">
-            <div class="flex justify-between items-start mb-4">
-              <span :class="['bg-yellow-100 text-yellow-800 text-xs font-semibold px-2.5 py-1 rounded',getCategoryColor(skill.category)]">
-                {{ skill.category }}
-              </span>
-              <span
-                :class="['text-xs font-semibold px-2.5 py-1 rounded flex items-center gap-1', getBadgeColor(skill.type)]">
-                <MagnifyingGlassIcon v-if="skill.type === 'Looking For'" class="w-3 h-3" />
-                <span v-else class="w-3 h-3 text-green-600">Q</span> {{ skill.type }}
-              </span>
-            </div>
-
-            <h3 class="font-bold text-lg mb-2 font-mono tracking-wide">{{ skill.title }}</h3>
-            <p class="text-gray-500 text-sm mb-6 flex-grow font-mono leading-relaxed">
-              {{ skill.description }}
-            </p>
-
-            <hr class="border-gray-100 mb-4">
-
-            <div class="flex justify-between items-center">
-              <div class="text-gray-600 font-mono text-sm">
-                Level: <span class="font-bold text-gray-800">{{ skill.level }}</span>
+        <div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div v-for="skill in skills" :key="skill.id"
+              class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col h-full">
+              <div class="flex justify-between items-start mb-4">
+                <span
+                  :class="['bg-yellow-100 text-yellow-800 text-xs font-semibold px-2.5 py-1 rounded', getCategoryColor(skill.category)]">
+                  {{ skill.category }}
+                </span>
+                <span
+                  :class="['text-xs font-semibold px-2.5 py-1 rounded flex items-center gap-1', getBadgeColor(skill.type)]">
+                  <MagnifyingGlassIcon v-if="skill.type === 'Looking For'" class="w-3 h-3" />
+                  <span v-else class="w-3 h-3 text-green-600">Q</span> {{ skill.type }}
+                </span>
               </div>
 
-              <div class="flex gap-2">
-                <button class="p-2 border border-red-400 text-red-500 rounded hover:bg-red-50 transition">
-                  <TrashIcon class="w-4 h-4" />
-                </button>
-                <button class="p-2 border border-[#2EE091] text-[#2EE091] rounded hover:bg-green-50 transition">
-                  <EyeIcon class="w-4 h-4" />
-                </button>
-                <button class="p-2 border border-blue-400 text-blue-500 rounded hover:bg-blue-50 transition">
-                  <PencilIcon class="w-4 h-4" />
-                </button>
+              <h3 class="font-bold text-lg mb-2 font-mono tracking-wide">{{ skill.title }}</h3>
+              <p class="text-gray-500 text-sm mb-6 flex-grow font-mono leading-relaxed">
+                {{ skill.description }}
+              </p>
+
+              <hr class="border-gray-100 mb-4">
+
+              <div class="flex justify-between items-center">
+                <div class="text-gray-600 font-mono text-sm">
+                  Level: <span class="font-bold text-gray-800">{{ skill.level }}</span>
+                </div>
+
+                <div class="flex gap-2">
+                  <button class="p-2 border border-red-400 text-red-500 rounded hover:bg-red-50 transition">
+                    <TrashIcon class="w-4 h-4" />
+                  </button>
+                  <button class="p-2 border border-[#2EE091] text-[#2EE091] rounded hover:bg-green-50 transition">
+                    <EyeIcon class="w-4 h-4" />
+                  </button>
+                  <button class="p-2 border border-blue-400 text-blue-500 rounded hover:bg-blue-50 transition">
+                    <PencilIcon class="w-4 h-4" />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
