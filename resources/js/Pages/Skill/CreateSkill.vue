@@ -43,9 +43,9 @@ const removeImage = () => {
     document.getElementById('image-upload').value = '';
 };
 
-onMounted(async () => {
-    await api.get("/sanctum/csrf-cookie");
-});
+// onMounted(async () => {
+//     await api.get("/sanctum/csrf-cookie");
+// });
 
 const createSkill = async () => {
     if (!image.value) {
@@ -68,7 +68,7 @@ const createSkill = async () => {
     }
 
     try {
-        await api.post("/api/skills", formData, {
+         await api.post("/skills", formData, {
             headers: { "Content-Type": "multipart/form-data" }
         });
 

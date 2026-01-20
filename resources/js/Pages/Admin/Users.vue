@@ -10,6 +10,7 @@ const props = defineProps({
 </script>
 
 <template>
+
     <div class="flex bg-gray-50">
         <Navigation />
 

@@ -18,10 +18,17 @@ class ProfileController extends Controller
      */
     public function edit(Request $request)
     {
-        return Inertia::render('Profile/Edit', [
-            'user' => $request->user(),
+        $user = $request->user()->load([
+            'skills.category',
+            'skills.level',
+        ]);
+
+        return Inertia::render('Profile', [
+            'user' => $user,
+            'skills' => $user->skills,
         ]);
     }
+
 
     /**
      * Update the user's profile information.

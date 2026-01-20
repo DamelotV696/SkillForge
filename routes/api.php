@@ -16,7 +16,7 @@ Route::get('/user', function (Request $request) {
 
 Route::get('/users', [UserController::class, 'index']);
 // Route::get('/profile', [UserProfileController::class, 'index']);
-Route::get('/profile', [UserProfileController::class, 'index']);
+Route::get('/profile', [UserProfileController::class, 'index'])->middleware('auth:sanctum');
 
 Route::apiResource('categories', CategoryController::class);
 

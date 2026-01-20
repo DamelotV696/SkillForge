@@ -15,7 +15,8 @@ import {
 } from '@heroicons/vue/24/outline';
 
 const props = defineProps({
-  user: Object
+  user: Object,
+  skills: Array
 });
 
 const isEditing = ref(false);
@@ -31,32 +32,6 @@ const profileData = ref({
   avatar: 'https://i.pravatar.cc/150?u=leo'
 });
 
-const skills = ref([
-  {
-    id: 1,
-    category: 'Frontend',
-    type: 'Offering',
-    title: 'Learn the Ruby',
-    description: 'American actor and producer, born November 11, 1974, who gained international stardom with Titanic (1997)...',
-    level: 'Expert'
-  },
-  {
-    id: 2,
-    category: 'Backend',
-    type: 'Looking For',
-    title: 'Learn How To Lie Properly',
-    description: 'American actor and producer, born November 11, 1974, who gained international stardom with Titanic (1997)...',
-    level: 'Beginner'
-  },
-  {
-    id: 3,
-    category: 'Poem',
-    type: 'Looking For',
-    title: 'Learn the Ruby',
-    description: 'American actor and producer, born November 11, 1974, who gained international stardom with Titanic (1997)...',
-    level: 'Intermedia'
-  }
-]);
 
 const getBadgeColor = (type) => {
   if (type === 'Offering') return 'bg-green-100 text-green-700';
@@ -103,7 +78,7 @@ const cancelEditing = () => {
 
 <template>
 
-  <Head title="Профиль пользователя" />
+  <Head title="Profile" />
 
   <div class="flex bg-[#F0F2F5] min-h-screen font-sans">
     <Navigation />
@@ -232,14 +207,8 @@ const cancelEditing = () => {
             <div v-for="skill in skills" :key="skill.id"
               class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col h-full">
               <div class="flex justify-between items-start mb-4">
-                <span
-                  :class="['bg-yellow-100 text-yellow-800 text-xs font-semibold px-2.5 py-1 rounded', getCategoryColor(skill.category)]">
-                  {{ skill.category }}
-                </span>
-                <span
-                  :class="['text-xs font-semibold px-2.5 py-1 rounded flex items-center gap-1', getBadgeColor(skill.type)]">
-                  <MagnifyingGlassIcon v-if="skill.type === 'Looking For'" class="w-3 h-3" />
-                  <span v-else class="w-3 h-3 text-green-600">Q</span> {{ skill.type }}
+                <span :class="['bg-yellow-100 text-yellow-800 text-xs font-semibold px-2.5 py-1 rounded']">
+                  {{ skill.category.title }}
                 </span>
               </div>
 
@@ -252,7 +221,7 @@ const cancelEditing = () => {
 
               <div class="flex justify-between items-center">
                 <div class="text-gray-600 font-mono text-sm">
-                  Level: <span class="font-bold text-gray-800">{{ skill.level }}</span>
+                  Level: <span class="font-bold text-gray-800">{{ skill.level.title }}</span>
                 </div>
 
                 <div class="flex gap-2">

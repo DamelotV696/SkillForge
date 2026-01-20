@@ -1,17 +1,12 @@
 <?php
-
-use App\Http\Controllers\Admin\Main\AdminIndexController;
-use App\Http\Controllers\Admin\User\CreateController;
-use App\Http\Controllers\Admin\User\DestroyController;
-use App\Http\Controllers\Admin\User\IndexController;
-use App\Http\Controllers\Admin\User\ShowController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Category;
 use App\Models\ExchangeTypes;
 use App\Models\level;
-use App\Models\Skill;
+use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Foundation\Application;
+use App\Models\Skill;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -26,7 +21,7 @@ Route::get('/', function () {
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
-        'categories' => Category::all()
+        'categories' => Category::paginate(6),
 
     ]);
 });
@@ -58,11 +53,11 @@ Route::middleware('auth')->group(function () {
             'categories' => Category::all()
         ]);
     });
-    Route::get('/profile', function () {
-        return Inertia::render('Profile', [
-            'user' => Auth::user()
-        ]);
-    })->name('profile');;
+    // Route::get('/profile', function () {
+    //     return Inertia::render('Profile', [
+    //         'user' => Auth::user()
+    //     ]);
+    // })->name('profile');
     Route::get('/skills/create', function () {
         return Inertia::render('Skill/CreateSkill', [
             'categories' => Category::all(),
@@ -72,6 +67,32 @@ Route::middleware('auth')->group(function () {
         ]);
     })->name('skills.create');
 
+    Route::post('/skills', function (Request $request) {
+        $validated = $request->validate([
+            'image' => 'nullable|file|image|max:2048',
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'category_id' => 'required|exists:categories,id',
+            'level_id' => 'required|exists:levels,id',
+            'place_execution' => 'required|string',
+            'exchange_type_id' => 'required|exists:exchange_types,id',
+            'price' => 'nullable|numeric|min:0',
+        ]);
+
+        $validated['user_id'] = Auth::id();
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('skills', 'public');
+            $validated['image'] = $path;
+        }
+
+        $skill = Skill::create($validated);
+
+        return response()->json([
+            'message' => 'Skill created successfully',
+            'skill' => $skill
+        ], 201);
+    })->name('skills.store');
 
 
 

@@ -1,55 +1,10 @@
 <script setup>
 import { Head } from '@inertiajs/vue3';
 import Navigation from '@/Components/Navigation.vue';
-
+import { Link } from '@inertiajs/vue3';
 const props = defineProps({
-    categories: Array,
+    categories: Object,
 });
-const categories = [
-    {
-        id: 1,
-        image: "/images/frontend.png",
-        title: "Frontend",
-        vacantions: 500,
-        color1: '#CF6F00',
-        color2: '#E5D200',
-    }, {
-        id: 2,
-        image: "/images/poem.png",
-        title: "Poem",
-        vacantions: 300,
-        color1: '#FF51D9',
-        color2: '#FFEA00',
-    }, {
-        id: 3,
-        image: "/images/music.png",
-        title: "Music",
-        vacantions: 100,
-        color1: '#E03160',
-        color2: '#A2A9B1',
-    }, {
-        id: 4,
-        image: "/images/backend.png",
-        title: "Backend",
-        vacantions: 800,
-        color1: '#840054',
-        color2: '#756BFF',
-    }, {
-        id: 5,
-        image: "/images/Architecture.png",
-        title: "Architecture",
-        vacantions: 250,
-        color1: '#FFA286',
-        color2: '#F3E57B',
-    }, {
-        id: 6,
-        image: "/images/Cooking.png",
-        title: "Cooking",
-        vacantions: 530,
-        color1: '#F62B2B',
-        color2: '#1EE80B',
-    }
-]
 
 const cards = [
     {
@@ -111,15 +66,13 @@ const cards = [
 
 <template>
 
-    <Head title="Главная" />
+    <Head title="Home" />
 
     <div class="flex bg-gray-50 dark:bg-white text-white dark:text-dark">
         <Navigation />
 
-        <!-- ОСНОВНОЙ КОНТЕНТ СПРАВА -->
         <main class="flex-1 bg-[#F0F0F0] min-h-screen">
 
-            <!-- БОЛЬШОЙ БЛОК ПОИСКА -->
             <section class="bg-gradient-to-r from-white to-[#98F0C9] p-14 mb-10">
                 <h1 class="text-4xl font-bold mb-4 text-black">Find the<br>perfect exchange</h1>
                 <p class="text-lg text-gray-600 dark:text-black max-w-xl mb-6">
@@ -137,27 +90,30 @@ const cards = [
                 </div>
             </section>
 
-            <!-- КАТЕГОРИИ -->
             <section class="mb-10 px-10">
                 <h2 class="text-3xl font-bold text-black mb-8 text-center">Categories</h2>
                 <div class="categories flex flex-wrap justify-center gap-6">
-                    <div v-for="category in props.categories" :key="category.id" class="rounded-xl p-1">
+                    <div v-for="category in props.categories.data" :key="category.id" class="rounded-xl p-1">
 
                         <div class="category bg-white p-5 rounded-xl shadow-sm w-52 text-center">
-                            <img :src="`/storage/${category.image}`" class="w-28 h-28 object-cover mb-4 mx-auto rounded-lg">
+                            <img :src="`/storage/${category.image}`"
+                                class="w-28 h-28 object-cover mb-4 mx-auto rounded-lg">
                             <h3 class="font-bold text-gray-800 mb-3 text-xl">{{ category.title }}</h3>
                             <div class="space-y-2">
                                 <p class="text-gray-600 text-base">Vacancies:</p>
-                                <span class="px-4 py-2 rounded-xl text-black border border-[#E03160] text-xl font-bold block">
+                                <span
+                                    class="px-4 py-2 rounded-xl text-black border border-[#E03160] text-xl font-bold block">
                                     {{ category.vacantions }}
                                 </span>
                             </div>
                         </div>
+
                     </div>
+
                 </div>
+
             </section>
 
-            <!-- КАРТОЧКИ -->
             <section class="px-10 pb-10 mb-10 p-10 bg-white rounded-3xl mx-10">
                 <h2 class="text-3xl font-bold text-black mb-8 text-center">Current offers</h2>
                 <div class="grid gap-7" style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">
@@ -206,7 +162,6 @@ const cards = [
     font-family: "Titillium Web", sans-serif;
 }
 
-/* Консистентные размеры текста */
 h1 {
     font-size: 2.25rem;
     /* text-4xl */
