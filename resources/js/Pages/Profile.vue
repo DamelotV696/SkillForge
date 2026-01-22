@@ -55,7 +55,7 @@ const cancelEditing = () => {
 
   <Head title="Profile" />
 
-  <div class="flex bg-gray-100 min-h-screen font-sans">
+  <div class="flex bg-gray-50 min-h-screen font-sans">
     <Navigation />
 
     <main class="flex-1 p-8 overflow-y-auto">
@@ -182,7 +182,7 @@ const cancelEditing = () => {
             <div v-for="skill in skills" :key="skill.id"
               class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col h-full">
               <div class="flex justify-between items-start mb-4">
-                <span :class="['bg-yellow-100 text-yellow-800 text-xs font-semibold px-2.5 py-1 rounded']">
+                <span class="px-3 py-1.5 bg-emerald-500/90 backdrop-blur-sm text-white text-sm font-semibold rounded-lg">
                   {{ skill.category.title }}
                 </span>
               </div>

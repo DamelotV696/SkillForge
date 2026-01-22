@@ -23,7 +23,7 @@ Route::get('/', function () {
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
-        'categories' => Category::paginate(6),
+        'categories' => Category::paginate(10),
         'skill' => Skill::with(['level', 'category'])->get()
 
     ]);
