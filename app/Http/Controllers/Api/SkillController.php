@@ -41,5 +41,6 @@ class SkillController extends Controller
             'message' => 'Skill created successfully',
             'skill' => $skill
         ], 201);
+
     }
 }

@@ -23,6 +23,7 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
+            'avatar' => 'nullable|image|max:2048',
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email',
             'city' => 'required|string|max:255',
@@ -31,7 +32,14 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Password::defaults()],
         ]);
 
+        $avatarPath = 'avatars/plug.png';
+
+        if ($request->hasFile('avatar')) {
+            $avatarPath = $request->file('avatar')->store('avatars', 'public');
+        }
+
         $user = User::create([
+            'avatar' => $avatarPath,
             'name' => $request->name,
             'email' => $request->email,
             'city' => $request->city,

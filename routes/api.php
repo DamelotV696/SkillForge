@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\SkillController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\UserProfileController;
+use App\Http\Controllers\Api\SettingController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -19,6 +20,7 @@ Route::get('/users', [UserController::class, 'index']);
 Route::get('/profile', [UserProfileController::class, 'index'])->middleware('auth:sanctum');
 
 Route::apiResource('categories', CategoryController::class);
+Route::get('/settings',[SettingController::class,'index']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('profile')->group(function () {
@@ -28,7 +30,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::apiResource('skills', SkillController::class);
 });
-
 
 
 // Route::get('/categories', [UserController::class, 'index']);

@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\Api\LogOutController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Category;
 use App\Models\ExchangeTypes;
@@ -22,9 +24,10 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
         'categories' => Category::paginate(6),
+        'skill' => Skill::with(['level', 'category'])->get()
 
     ]);
-});
+})->name('welcome');
 
 /*
  | Dashboard
@@ -41,6 +44,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
     // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/admin/users', function () {
@@ -53,7 +57,7 @@ Route::middleware('auth')->group(function () {
             'categories' => Category::all()
         ]);
     });
-    // Route::get('/profile', function () {
+    // Route::get('/profile', action: function () {
     //     return Inertia::render('Profile', [
     //         'user' => Auth::user()
     //     ]);
@@ -66,6 +70,12 @@ Route::middleware('auth')->group(function () {
 
         ]);
     })->name('skills.create');
+
+    Route::get('/settings', function () {
+        return Inertia::render('Setting', [
+            'users' => User::all()
+        ]);
+    });
 
     Route::post('/skills', function (Request $request) {
         $validated = $request->validate([
@@ -94,7 +104,15 @@ Route::middleware('auth')->group(function () {
         ], 201);
     })->name('skills.store');
 
+    Route::post('/logout', [LogOutController::class, 'perform'])->name('logout');
 
+
+    Route::post('/language', function (Request $request) {
+        $request->validate(['lang' => 'required|string|in:en,ru']);
+        session(['locale' => $request->lang]);
+        app()->setLocale($request->lang);
+        return back();
+    })->name('language.change');
 
     // Route::middleware('auth')->get('/api/profile', function () {
     //     return response()->json([

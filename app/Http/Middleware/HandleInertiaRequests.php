@@ -34,6 +34,8 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
+            // Язык из сессии или дефолт 'en'
+            'locale' => session('locale', 'en'),
         ];
     }
 }

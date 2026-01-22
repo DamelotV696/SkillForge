@@ -2,7 +2,7 @@
 import { ref, computed, onMounted } from "vue";
 import { Head } from '@inertiajs/vue3';
 import Navigation from '@/Components/Navigation.vue';
-import { api } from "@/services/api"; 
+import { api } from "@/services/api";
 
 const props = defineProps({
     categories: Array,
@@ -68,7 +68,7 @@ const createSkill = async () => {
     }
 
     try {
-         await api.post("/skills", formData, {
+        await api.post("/skills", formData, {
             headers: { "Content-Type": "multipart/form-data" }
         });
 
@@ -216,7 +216,7 @@ const createSkill = async () => {
                                 <input type="number" id="price" v-model.number="price" min="0" step="1"
                                     class="w-full px-4 py-2.5 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
                                     placeholder="Enter price" required />
-                                <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">₽</span>
+                                <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">$</span>
                             </div>
                         </div>
 
@@ -226,7 +226,6 @@ const createSkill = async () => {
                                 Create Skill
                             </button>
                         </div>
-
                     </form>
                 </div>
             </div>

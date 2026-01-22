@@ -1,0 +1,54 @@
+{
+  "home_title": "Find the perfect exchange",
+  "home_description": "Share your knowledge and learn new things from other people. Free exchange of skills without borders.",
+  "search_placeholder": "Search",
+  "categories_title": "Categories",
+  "vacancies": "Vacancies",
+  "current_offers": "Current Offers",
+  "view_details": "View Details",
+  "user_profile": "User Profile",
+  "main_details": "Main Details",
+  "edit_profile": "Edit Profile",
+  "save": "Save",
+  "cancel": "Cancel",
+  "full_name": "Full Name",
+  "role": "Role",
+  "email_address": "Email Address",
+  "rate": "Rate",
+  "bio": "Bio",
+  "active_skills": "Active Skills",
+  "filter": "Filter",
+  "add_skills": "Add Skills",
+  "level": "Level",
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Manage your preferences and account settings",
+    "language": {
+      "title": "Language",
+      "description": "Choose your preferred language"
+    },
+    "appearance": {
+      "title": "Appearance",
+      "description": "Customize the look and feel of the app",
+      "darkMode": "Dark Mode",
+      "darkModeHint": "Enable dark theme for the application",
+      "fontSize": "Font Size",
+      "fontSizeHint": "Adjust the text size across the app",
+      "small": "Small",
+      "medium": "Medium",
+      "large": "Large"
+    },
+    "notifications": {
+      "title": "Notifications",
+      "description": "Manage your notifications preferences",
+      "email": "Email Notifications",
+      "emailHint": "Receive updates and alerts via email",
+      "autoSave": "Auto Save",
+      "autoSaveHint": "Automatically save changes without asking"
+    },
+    "actions": {
+      "save": "Save",
+      "cancel": "Cancel"
+    }
+  }
+}

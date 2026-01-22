@@ -25,12 +25,20 @@
                 <ArrowsRightLeftIcon class="h-5 w-5 mr-3" />
                 Exchanges
             </Link>
-
-
             <Link href="#"
                 class="flex items-center px-3 py-2 rounded text-gray-700 hover:bg-[#2EE091] hover:bg-opacity-40 group">
                 <BellIcon class="h-5 w-5 mr-3" />
                 Notifications
+            </Link>
+            <Link href="/settings"
+                class="flex items-center px-3 py-2 rounded text-gray-700 hover:bg-[#2EE091] hover:bg-opacity-40 group">
+                <Cog6ToothIcon class="h-5 w-5 mr-3" />
+                Settings
+            </Link>
+            <Link href="/logout" method="post"
+                class="flex items-center px-3 py-2 rounded text-gray-700 hover:bg-[#2EE091] hover:bg-opacity-40 group">
+                <ArrowRightOnRectangleIcon class="h-5 w-5 mr-3" />
+                Log out
             </Link>
 
             <Link href="/admin/users"
@@ -38,7 +46,6 @@
                 <ShieldCheckIcon class="h-5 w-5 mr-3" />
                 Admin
             </Link>
-
         </nav>
     </aside>
 </template>
@@ -53,6 +60,8 @@ import {
     UserIcon,
     BellIcon,
     ShieldCheckIcon,
+    Cog6ToothIcon,
+    ArrowRightOnRectangleIcon
 } from '@heroicons/vue/24/outline'
 
 </script>
