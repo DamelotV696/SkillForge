@@ -39,7 +39,7 @@ function formatTimeAgoShort(created_at) {
 
     <Head title="Home" />
 
-        <div class="flex bg-gray-50 text-white">
+    <div class="flex bg-gray-50 text-white">
         <Navigation />
 
         <main class="flex-1 bg-gray-50 min-h-screen">

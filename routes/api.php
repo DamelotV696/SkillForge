@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\SkillController as SkillsController;
 use App\Http\Controllers\Api\SkillController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\UserProfileController;
@@ -17,19 +18,24 @@ Route::get('/user', function (Request $request) {
 
 Route::get('/users', [UserController::class, 'index']);
 // Route::get('/profile', [UserProfileController::class, 'index']);
+
 Route::get('/profile', [UserProfileController::class, 'index'])->middleware('auth:sanctum');
 
+
 Route::apiResource('categories', CategoryController::class);
-Route::get('/settings',[SettingController::class,'index']);
+Route::get('/settings', [SettingController::class, 'index']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('profile')->group(function () {
         Route::get('/', [ProfileController::class, 'index']);
         Route::put('/', [ProfileController::class, 'update']);
     });
-
-    Route::apiResource('skills', SkillController::class);
 });
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('skills', SkillsController::class)->except(['show']);
+});
+
+
 
 
 // Route::get('/categories', [UserController::class, 'index']);

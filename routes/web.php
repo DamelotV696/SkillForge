@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Api\LogOutController;
+use App\Http\Controllers\SkillController;
+use App\Http\Controllers\Api\SkillPageController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Category;
 use App\Models\ExchangeTypes;
@@ -32,18 +34,21 @@ Route::get('/', function () {
 /*
  | Dashboard
 */
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia('Dashboard');
-    })->name('dashboard');
-});
+// Route::middleware(['auth', 'verified'])->group(function () {
+//     Route::get('/dashboard', function () {
+//         return Inertia('Dashboard');
+//     })->name('dashboard');
+// });
 /*
  | Authenticated routes
 */
 // Route::middleware('auth')->group(function () {
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
 
     // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
@@ -70,6 +75,11 @@ Route::middleware('auth')->group(function () {
 
         ]);
     })->name('skills.create');
+
+    Route::get('/skills/{skill}', [SkillController::class, 'show'])->name('skills.show');
+    Route::get('/profile/{user}', [ProfileController::class, 'show'])->name('profile.show');
+
+
 
     Route::get('/settings', function () {
         return Inertia::render('Setting', [

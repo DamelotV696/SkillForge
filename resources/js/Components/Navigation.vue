@@ -35,12 +35,11 @@
                 <Cog6ToothIcon class="h-5 w-5 mr-3" />
                 Settings
             </Link>
-            <Link href="/logout" method="post"
+            <Link v-if="$page.props.auth && $page.props.auth.user" href="/logout" method="post"
                 class="flex items-center px-3 py-2 rounded text-gray-700 hover:bg-[#2EE091] hover:bg-opacity-40 group">
                 <ArrowRightOnRectangleIcon class="h-5 w-5 mr-3" />
                 Log out
             </Link>
-
             <Link href="/admin/users"
                 class="flex items-center px-3 py-2 rounded text-gray-700 hover:bg-[#2EE091] hover:bg-opacity-40 group">
                 <ShieldCheckIcon class="h-5 w-5 mr-3" />

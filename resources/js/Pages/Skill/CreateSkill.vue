@@ -43,9 +43,9 @@ const removeImage = () => {
     document.getElementById('image-upload').value = '';
 };
 
-// onMounted(async () => {
-//     await api.get("/sanctum/csrf-cookie");
-// });
+onMounted(async () => {
+    await api.get("/sanctum/csrf-cookie");
+});
 
 const createSkill = async () => {
     if (!image.value) {
@@ -68,9 +68,7 @@ const createSkill = async () => {
     }
 
     try {
-        await api.post("/skills", formData, {
-            headers: { "Content-Type": "multipart/form-data" }
-        });
+        await api.post("/skills", formData);
 
         alert('Skill created successfully!');
 
@@ -100,7 +98,7 @@ const createSkill = async () => {
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">
-                                Skill Image *
+                                Skill Image
                             </label>
 
                             <div class="space-y-3">
@@ -115,10 +113,10 @@ const createSkill = async () => {
                                                     d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                             </svg>
                                             <button type="button" @click="$refs.fileInput.click()"
-                                                class="text-blue-600 hover:text-blue-800 font-medium">
+                                                class="text-emerald-500 hover:text-emerald-400 font-medium">
                                                 Upload Image
                                             </button>
-                                            <input ref="fileInput" type="file" id="image-upload" accept="image/*"
+                                            <input ref="fileInput" type="file" id="image-upload" accept="image/"
                                                 @change="handleImageUpload" class="hidden" required />
                                         </div>
                                     </template>
@@ -141,7 +139,7 @@ const createSkill = async () => {
                         </div>
                         <div>
                             <label for="title" class="block text-sm font-medium text-gray-700 mb-1">
-                                Skill Title *
+                                Skill Title
                             </label>
                             <input type="text" id="title" v-model="title"
                                 class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
@@ -150,7 +148,7 @@ const createSkill = async () => {
 
                         <div>
                             <label for="description" class="block text-sm font-medium text-gray-700 mb-1">
-                                Description *
+                                Description
                             </label>
                             <textarea id="description" v-model="description" rows="4"
                                 class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
@@ -159,7 +157,7 @@ const createSkill = async () => {
 
                         <div>
                             <label for="category_id" class="block text-sm font-medium text-gray-700 mb-1">
-                                Category *
+                                Category
                             </label>
                             <select id="category_id" v-model="category_id"
                                 class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
@@ -173,7 +171,7 @@ const createSkill = async () => {
 
                         <div>
                             <label for="level_id" class="block text-sm font-medium text-gray-700 mb-1">
-                                Level *
+                                Level
                             </label>
                             <select id="level_id" v-model="level_id"
                                 class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
@@ -187,7 +185,7 @@ const createSkill = async () => {
 
                         <div>
                             <label for="place_execution" class="block text-sm font-medium text-gray-700 mb-1">
-                                Work Location *
+                                Work Location
                             </label>
                             <input type="text" id="place_execution" v-model="place_execution"
                                 class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
@@ -196,7 +194,7 @@ const createSkill = async () => {
 
                         <div>
                             <label for="exchange_type_id" class="block text-sm font-medium text-gray-700 mb-1">
-                                Exchange Type *
+                                Exchange Type
                             </label>
                             <select id="exchange_type_id" v-model="exchange_type_id"
                                 class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
@@ -210,7 +208,7 @@ const createSkill = async () => {
 
                         <div v-if="showPriceField">
                             <label for="price" class="block text-sm font-medium text-gray-700 mb-1">
-                                Price *
+                                Price
                             </label>
                             <div class="relative">
                                 <input type="number" id="price" v-model.number="price" min="0" step="1"
@@ -222,7 +220,7 @@ const createSkill = async () => {
 
                         <div class="flex gap-4 pt-4">
                             <button type="submit"
-                                class="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition">
+                                class="px-6 py-3 bg-emerald-500 text-white font-medium rounded-lg hover:bg-emerald-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition">
                                 Create Skill
                             </button>
                         </div>

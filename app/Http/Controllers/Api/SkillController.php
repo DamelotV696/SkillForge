@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\ExchangeTypes;
+use App\Models\level;
 use App\Models\Skill;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class SkillController extends Controller
 {
@@ -41,6 +45,5 @@ class SkillController extends Controller
             'message' => 'Skill created successfully',
             'skill' => $skill
         ], 201);
-
     }
 }

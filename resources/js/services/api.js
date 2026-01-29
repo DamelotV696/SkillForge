@@ -3,9 +3,11 @@ import axios from "axios";
 export const api = axios.create({
     baseURL: "/",
     withCredentials: true,
+    headers: {
+        "X-Requested-With": "XMLHttpRequest",
+    },
 });
 
-// Добавляем CSRF токен из cookie в заголовки
 api.interceptors.request.use((config) => {
     const token = document
         .querySelector('meta[name="csrf-token"]')

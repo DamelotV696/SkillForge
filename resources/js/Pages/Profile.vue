@@ -182,7 +182,8 @@ const cancelEditing = () => {
             <div v-for="skill in skills" :key="skill.id"
               class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col h-full">
               <div class="flex justify-between items-start mb-4">
-                <span class="px-3 py-1.5 bg-emerald-500/90 backdrop-blur-sm text-white text-sm font-semibold rounded-lg">
+                <span
+                  class="px-3 py-1.5 bg-emerald-500/90 backdrop-blur-sm text-white text-sm font-semibold rounded-lg">
                   {{ skill.category.title }}
                 </span>
               </div>
@@ -201,9 +202,12 @@ const cancelEditing = () => {
                   <button class="p-2 border border-red-400 text-red-500 rounded hover:bg-red-50 transition">
                     <TrashIcon class="w-4 h-4" />
                   </button>
-                  <button class="p-2 border border-[#2EE091] text-[#2EE091] rounded hover:bg-green-50 transition">
-                    <EyeIcon class="w-4 h-4" />
-                  </button>
+                  <Link :href="route('skills.show', skill.id)">
+                    <button class="p-2 border border-[#2EE091] text-[#2EE091] rounded hover:bg-green-50 transition">
+                      <EyeIcon class="w-4 h-4" />
+                    </button>
+                  </Link>
+
                   <button class="p-2 border border-blue-400 text-blue-500 rounded hover:bg-blue-50 transition">
                     <PencilIcon class="w-4 h-4" />
                   </button>
